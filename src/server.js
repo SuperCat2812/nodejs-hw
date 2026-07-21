@@ -13,7 +13,7 @@ app.get('/notes', (req, res) => {
 });
 
 app.get('/notes/:userId', (req, res) => {
-  const { id_params } = req.params;
+  const id_params = req.params.userId;
   res.status(200).json({ message: `Retrieved note with ID: ${id_params}` });
 });
 
