@@ -6,10 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "format": "prettier src/**/*.js",
-    "lint": "eslint src/**/*.js"
+    "start": "node src/server.js"
   },
   "repository": {
     "type": "git",
