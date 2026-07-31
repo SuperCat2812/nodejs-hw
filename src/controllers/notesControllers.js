@@ -9,7 +9,7 @@ export const getNotes = async (req, res) => {
 export const getNotesId = async (req, res) => {
   const { noteId } = req.params;
   const note = await Note.findById({ _id: noteId });
-  if (!note) throw createHttpError(404, `Cannot find note with id=${noteId}`);
+  if (!note) throw createHttpError(404, `Note not found`);
   res.json(note);
 };
 
@@ -23,12 +23,12 @@ export const updateNote = async (req, res) => {
   const note = await Note.findByIdAndUpdate({ _id: noteId }, req.body, {
     returnDocument: 'after',
   });
-  if (!note) throw createHttpError(404, `Cannot find note with id=${noteId}`);
+  if (!note) throw createHttpError(404, `Note not found`);
   res.json(note);
 };
 export const deleteNote = async (req, res) => {
   const { noteId } = req.params;
   const note = await Note.findByIdAndDelete({ _id: noteId });
-  if (!note) throw createHttpError(404, `Cannot find note with id=${noteId}`);
+  if (!note) throw createHttpError(404, `Note not found`);
   res.json(note);
 };
