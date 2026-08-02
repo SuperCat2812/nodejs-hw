@@ -6,7 +6,7 @@ export const getAllNotes = async (req, res) => {
   res.json(notes);
 };
 
-export const getNotesById = async (req, res) => {
+export const getNoteById = async (req, res) => {
   const { noteId } = req.params;
   const note = await Note.findById(noteId);
   if (!note) throw createHttpError(404, `Note not found`);
