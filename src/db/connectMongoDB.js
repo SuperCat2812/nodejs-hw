@@ -7,7 +7,6 @@ const connectDataBase = async () => {
   } catch (error) {
     console.log('Failed connect database', error);
     process.exit(1);
-    throw error;
   }
 };
 export default connectDataBase;
