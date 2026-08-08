@@ -18,7 +18,7 @@ app.use(logger);
 app.use('/notes', noteRouter);
 
 app.use(notFoundHandler);
-app.use(errors);
+app.use(errors());
 app.use(errorHandler);
 
 await connectDataBase();

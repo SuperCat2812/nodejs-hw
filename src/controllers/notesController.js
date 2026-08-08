@@ -4,7 +4,7 @@ import createHttpError from 'http-errors';
 export const getAllNotes = async (req, res) => {
   const { page = 1, perPage = 10, tag, search } = req.query;
   const skip = (page - 1) * perPage;
-  const notesQuery = await Note.find();
+  const notesQuery = Note.find();
   if (search) {
     notesQuery.where({
       $or: [
@@ -18,7 +18,7 @@ export const getAllNotes = async (req, res) => {
   }
   const [notes, totalNotes] = await Promise.all([
     notesQuery.clone().skip(skip).limit(perPage),
-    notesQuery.countDOcuments(),
+    notesQuery.countDocuments(),
   ]);
   const totalPages = Math.ceil(totalNotes / perPage);
   res.json({ page, perPage, totalNotes, totalPages, notes });
