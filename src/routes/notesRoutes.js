@@ -13,14 +13,11 @@ import {
   noteIdSchema,
   updateNoteSchema,
 } from '../validations/notesValidation.js';
+import authenticate from '../middleware/authenticate.js';
 
 const noteRouter = Router();
-
-noteRouter.get(
-  '/',
-  celebrate(getAllNotesSchema, { abortEarly: false }),
-  getAllNotes,
-);
+noteRouter.use(authenticate);
+noteRouter.get('/', celebrate(getAllNotesSchema), getAllNotes);
 noteRouter.get(
   '/:noteId',
   celebrate(noteIdSchema, { abortEarly: false }),
