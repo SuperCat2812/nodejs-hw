@@ -6,7 +6,7 @@ const authenticate = async (req, res, next) => {
   const { accessToken, sessionId } = req.cookies;
   if (!sessionId) throw createHttpError(401, 'Session not found');
   if (!accessToken) throw createHttpError(401, 'Missing access token');
-  const session = await Session.findOne({ accessToken, sessionId });
+  const session = await Session.findOne({ accessToken, _id: sessionId });
   if (!session) throw createHttpError(401, 'Session not found');
 
   if (session.accessTokenValidUntil < Date.now())
