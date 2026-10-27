@@ -7,11 +7,12 @@ const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, SMTP_FROM } =
 const transporter = nodemailer.createTransport({
   host: SMTP_HOST,
   port: Number(SMTP_PORT),
-  secure: false,
-  auth: { user: SMTP_USER, pass: SMTP_PASSWORD },
-  tls: {
-    rejectUnauthorized: false,
+  secure: Number(SMTP_PORT) === 465,
+  auth: {
+    user: SMTP_USER,
+    pass: SMTP_PASSWORD,
   },
+  requireTLS: Number(SMTP_PORT) !== 465,
 });
 
 export const sendEmail = async ({ to, subject, html }) => {
