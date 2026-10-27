@@ -1,13 +1,26 @@
 import { HttpError } from 'http-errors';
+
 const errorHandler = (err, req, res, next) => {
-  if (err instanceof HttpError) {
-    const { status = 500 } = err;
-    return res.status(status).json({
-      message: err.message || err.name,
+  const status =
+    err instanceof HttpError ||
+    (Number.isInteger(err.status) && err.status >= 400 && err.status < 500)
+      ? (err.status ?? 500)
+      : 500;
+
+  if (status >= 500) {
+    console.error('Internal server error:', err);
+  }
+
+  if (err.type === 'entity.parse.failed') {
+    return res.status(400).json({
+      message: 'Invalid JSON',
     });
   }
-  res.status(500).json({
-    message: err.message,
+
+  return res.status(status).json({
+    message:
+      status >= 500 ? 'Internal Server Error' : err.message || 'Bad Request',
   });
 };
+
 export default errorHandler;
